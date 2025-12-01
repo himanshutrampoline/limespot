@@ -308,6 +308,15 @@ if (!customElements.get('cart-drawer')) {
           // Only update if we got valid HTML back
           if (html !== null && html !== undefined) {
             el.innerHTML = html;
+            
+            // If updating free-shipping-notice, ensure it's visible when cart has items
+            if (section.id === 'free-shipping-notice') {
+              const cartItems = this.querySelector('cart-items');
+              const hasItems = cartItems && cartItems.querySelector('.cart-item:first-child') !== null;
+              if (hasItems) {
+                el.style.display = '';
+              }
+            }
           }
         }
       });
@@ -332,6 +341,11 @@ if (!customElements.get('cart-drawer')) {
           id: 'cart-icon-bubble',
           section: 'cart-icon-bubble',
           selector: '.shopify-section'
+        },
+        {
+          id: 'free-shipping-notice',
+          section: 'free-shipping-notice',
+          selector: '.free-shipping-notice'
         }
       ];
     }
